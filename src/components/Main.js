@@ -10,6 +10,25 @@ export default class Main extends Component {
     index: -1 // estado de criação de tasks
   };
 
+  // DEPOIS ESSE - assim que os elementos forem montados vai salvar aqui
+  componentDidMount() {
+    const tarefas = JSON.parse(localStorage.getItem("tarefas"));
+
+    if (!tarefas) return;
+
+    this.setState({ tarefas });
+  }
+
+  // PRIMEIRO ESSE - salvar as tarefas no cache do navegador
+  componentDidUpdate(prevProps, prevState) {
+    const { tarefas } = this.state;
+
+    if (tarefas === prevState.tarefas) return; // verifica se o valor das tasks estao completos, e quando salvar guarda o array com os valores
+
+    // Faz ação de transformar as tarefas em string p/ serem salvas
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  }
+
   handleSubmit = (e) => {
     e.preventDefault(); // bloqueia o envio do form
     const { tarefas, index } = this.state; // chama o array de tarefas do state
