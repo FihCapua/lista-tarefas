@@ -1,10 +1,6 @@
 import "./styles.css";
+import Main from "./components/Main";
 
 export default function App() {
-  return (
-    <div className="App">
-      <h1>ulas lalala</h1>
-      <h2>Edit to see some magic happen!</h2>
-    </div>
-  );
+  return <Main />;
 }
