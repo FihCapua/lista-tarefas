@@ -20,7 +20,8 @@ export default class Main extends Component {
     const newsTasks = [...tarefas]; // aqui todos os valores (resultados) que forem pra o array (que estava vazio) tarefas serão copiados
 
     this.setState({
-      tarefas: [...newsTasks, newTask] // tarefas serão iguais ao que for inserido nas novas tarefas (...rest copia as tarefas, newTask jogam os resultados das novas tarefas)
+      tarefas: [...newsTasks, newTask], // tarefas serão iguais ao que for inserido nas novas tarefas (...rest copia as tarefas, newTask jogam os resultados das novas tarefas)
+      newTask: ""
     });
   };
 
