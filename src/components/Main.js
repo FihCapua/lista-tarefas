@@ -6,7 +6,22 @@ import "./Main.css";
 export default class Main extends Component {
   state = {
     newTask: "",
-    tarefas: ["fazer Café", "beber Água", "Estudar"]
+    tarefas: []
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault(); // bloqueia o envio do form
+    const { tarefas } = this.state; // chama o array de tarefas do state
+    let { newTask } = this.state; // chama a new Task que vai transformar o array de tarefas em string.
+    newTask = newTask.trim(); // elimina os espaços do começo e do final do input
+
+    if (tarefas.indexOf(newTask) !== -1) return; // caso o valor do input seja repetido não retorna nada
+
+    const newsTasks = [...tarefas]; // aqui todos os valores (resultados) que forem pra o array (que estava vazio) tarefas serão copiados
+
+    this.setState({
+      tarefas: [...newsTasks, newTask] // tarefas serão iguais ao que for inserido nas novas tarefas (...rest copia as tarefas, newTask jogam os resultados das novas tarefas)
+    });
   };
 
   handleChange = (e) => {
@@ -22,7 +37,7 @@ export default class Main extends Component {
       <div className="main">
         <h1>Lista de Tarefas </h1>
 
-        <form className="form" action="#">
+        <form onSubmit={this.handleSubmit} className="form" action="#">
           <input onChange={this.handleChange} type="text" value={newTask} />
           <button type="submit">
             <FaPlus />
@@ -33,10 +48,10 @@ export default class Main extends Component {
           {tarefas.map((tarefa) => (
             <li key={tarefa}>
               {tarefa}
-              <div>
+              <span>
                 <FaEdit className="edit" />
                 <FaWindowClose className="delete" />
-              </div>
+              </span>
             </li>
           ))}
         </ul>
