@@ -30,6 +30,21 @@ export default class Main extends Component {
     });
   };
 
+  // Manipula os ícones de edit e delete
+  handleEdit = (e, index) => {
+    console.log("Edit", index);
+  };
+
+  handleDelete = (e, index) => {
+    const { tarefas } = this.state; // chama o estado tarefas
+    const newTask = [...tarefas]; // copia o array de tarefas pra ser manipulado
+    newTask.splice(index, 1); // splice remove 1 elemento do index assim que clicado
+
+    this.setState({
+      tarefas: [...newTask] // seta(configura) o estado e copia o que foi criado pra que o estado funcione
+    });
+  };
+
   render() {
     const { newTask, tarefas } = this.state;
 
@@ -45,12 +60,18 @@ export default class Main extends Component {
         </form>
 
         <ul className="tarefas">
-          {tarefas.map((tarefa) => (
+          {tarefas.map((tarefa, index) => (
             <li key={tarefa}>
               {tarefa}
               <span>
-                <FaEdit className="edit" />
-                <FaWindowClose className="delete" />
+                <FaEdit
+                  onClick={(e) => this.handleEdit(e, index)}
+                  className="edit"
+                />
+                <FaWindowClose
+                  onClick={(e) => this.handleDelete(e, index)}
+                  className="delete"
+                />
               </span>
             </li>
           ))}
